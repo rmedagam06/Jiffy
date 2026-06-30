@@ -1,332 +1,752 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./support.js"></script>
 </head>
+
 <body>
-<x-dc>
-<helmet>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="./image-slot.js"></script>
-  <style>
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:#0c1d25}
-    ::-webkit-scrollbar{display:none}
-    *{scrollbar-width:none}
-    @keyframes bobUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-    @keyframes floatMascot{0%,100%{transform:translateX(-50%) translateY(0) rotate(-2deg)}50%{transform:translateX(-50%) translateY(-6px) rotate(2deg)}}
-    @keyframes driftClouds{from{background-position-x:0}to{background-position-x:-300px}}
-  </style>
-</helmet>
-<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px;background:radial-gradient(120% 120% at 50% 0%,#16323e 0%,#0c1d25 70%)">
-  <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ dark }}" width="{{ deviceWidth }}" height="{{ deviceHeight }}" hint-size="402px,874px">
+  <x-dc>
+    <helmet>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+      <script src="./image-slot.js"></script>
+      <style>
+        * {
+          box-sizing: border-box
+        }
 
-    <div ref="{{ pageRef }}" style="position:relative;height:100%;width:100%;overflow:hidden;font-family:Nunito,sans-serif;background-image:linear-gradient(180deg,#8fc6d8 0%,#5a9bb1 30%,#37788f 62%,#2a6076 100%)">
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+          background: #0c1d25
+        }
 
-      <!-- ════════════ HOME ════════════ -->
-      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
-      <div ref="{{ bgRef }}" style="position:absolute;inset:0;background-image:url(assets/bg-morning.png);background-size:cover;background-position:top center;background-repeat:no-repeat">
-      <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch">
+        ::-webkit-scrollbar {
+          display: none
+        }
 
-        <!-- HERO -->
-        <div style="position:relative;height:380px;overflow:hidden">
-          <!-- drifting clouds -->
-          <div ref="{{ cloudRef }}" style="position:absolute;top:8px;left:0;right:0;height:118px;background-image:url(assets/clouds.png);background-repeat:repeat-x;background-size:300px auto;background-position:top left;animation:driftClouds 60s linear infinite;opacity:0.92;pointer-events:none"></div>
-          <!-- mascot + thought bubble (centered group) -->
-          <div ref="{{ mascotRef }}" style="position:absolute;top:50px;left:50%;width:240px;display:flex;flex-direction:column;align-items:center;animation:floatMascot 5s ease-in-out infinite;z-index:4">
-            <!-- thought bubble -->
-            <div style="display:flex;align-items:center;justify-content:center;text-align:center;width:196px;min-height:60px;padding:14px 22px;background:#fff;border:2.5px solid #dde8ee;border-radius:32px;box-shadow:0 10px 22px rgba(10,40,55,0.28)">
-              <span ref="{{ subRef }}" style="font-family:Fredoka,sans-serif;font-weight:600;font-size:16.5px;line-height:1.18;color:#2a6076;text-align:center">Ready to start your scroll?</span>
-            </div>
-            <!-- trailing dots -->
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;margin:7px 0 -4px">
-              <div style="width:14px;height:14px;border-radius:50%;background:#fff;border:2.5px solid #dde8ee;box-shadow:0 3px 6px rgba(10,40,55,0.2)"></div>
-              <div style="width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #dde8ee;box-shadow:0 2px 4px rgba(10,40,55,0.2)"></div>
-            </div>
-            <!-- giraffe -->
-            <img src="assets/jiffy-mascot.png" alt="Jiffy mascot" style="width:120px;display:block;filter:drop-shadow(0 10px 14px rgba(20,50,65,0.38))"/>
-          </div>
-          <!-- time -->
-          <div style="position:absolute;left:22px;bottom:16px;right:22px">
-            <div style="display:flex;align-items:flex-end;gap:10px">
-              <span ref="{{ timeRef }}" style="font-family:Fredoka,sans-serif;font-weight:600;font-size:58px;line-height:0.9;color:#fff;text-shadow:0 3px 10px rgba(10,45,60,0.45)">8:00 AM</span>
-              <span ref="{{ periodRef }}" style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 6px rgba(10,45,60,0.45);padding-bottom:8px">EST</span>
-              <span ref="{{ weatherRef }}" style="font-size:40px;margin-left:auto;padding-bottom:2px;filter:drop-shadow(0 3px 6px rgba(10,45,60,0.3))">⛅</span>
-            </div>
-            <div style="height:3px;background:rgba(255,255,255,0.75);border-radius:3px;margin-top:8px"></div>
-          </div>
-        </div>
+        * {
+          scrollbar-width: none
+        }
 
-        <!-- BODY -->
-        <div style="padding:10px 20px 120px">
-          <div ref="{{ greetRef }}" style="font-family:Fredoka,sans-serif;font-weight:600;font-size:33px;line-height:1.05;color:#fff;text-shadow:0 2px 8px rgba(8,40,55,0.4);white-space:nowrap;overflow:hidden">GOOD MORNING, SAM!</div>
+        @keyframes bobUp {
 
-          <!-- Streak card -->
-          <div style="margin-top:22px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px 20px 24px">
-            <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:24px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3)">Streak: 7 days! 🔥</div>
-            <div style="height:2px;background:rgba(255,255,255,0.45);border-radius:2px;margin:12px 0 16px"></div>
-            <div style="display:flex;justify-content:space-between">
-              <sc-for list="{{ weekDays }}" as="d" hint-placeholder-count="7">
-                <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
-                  <span style="font-family:Fredoka,sans-serif;font-weight:600;font-size:14px;color:#eef7fb;letter-spacing:0.5px">{{ d.label }}</span>
-                  <div style="{{ d.circleStyle }}">{{ d.num }}</div>
+          0%,
+          100% {
+            transform: translateY(0)
+          }
+
+          50% {
+            transform: translateY(-7px)
+          }
+        }
+
+        @keyframes floatMascot {
+
+          0%,
+          100% {
+            transform: translateX(-50%) translateY(0) rotate(-2deg)
+          }
+
+          50% {
+            transform: translateX(-50%) translateY(-6px) rotate(2deg)
+          }
+        }
+
+        @keyframes driftClouds {
+          from {
+            background-position-x: 0
+          }
+
+          to {
+            background-position-x: -300px
+          }
+        }
+      </style>
+    </helmet>
+    <div style="position:fixed;inset:0;overflow:hidden;background:#0c1d25">
+
+      <div ref="{{ pageRef }}"
+        style="position:absolute;inset:0;overflow:hidden;font-family:Nunito,sans-serif;background-image:linear-gradient(180deg,#8fc6d8 0%,#5a9bb1 30%,#37788f 62%,#2a6076 100%)">
+
+        <!-- ════════════ HOME ════════════ -->
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+          <div ref="{{ bgRef }}"
+            style="position:absolute;inset:0;background-image:url(assets/bg-morning.png);background-size:cover;background-position:top center;background-repeat:no-repeat">
+            <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch">
+
+              <!-- HERO -->
+              <div style="position:relative;height:380px;overflow:hidden">
+                <!-- drifting clouds -->
+                <div ref="{{ cloudRef }}"
+                  style="position:absolute;top:8px;left:0;right:0;height:118px;background-image:url(assets/clouds.png);background-repeat:repeat-x;background-size:300px auto;background-position:top left;animation:driftClouds 60s linear infinite;opacity:0.92;pointer-events:none">
                 </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <!-- Target Areas card -->
-          <div style="margin-top:18px;background:linear-gradient(135deg,#eedcb2 0%,#d6a570 100%);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:22px 22px 24px;display:flex;gap:14px">
-            <div style="flex:0 0 auto">
-              <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:26px;color:#fff;text-shadow:0 2px 5px rgba(120,80,30,0.35);line-height:1.05">Target<br>Areas</div>
-              <div style="font-family:Fredoka,sans-serif;font-weight:500;font-size:16px;color:#fffaf0;margin-top:6px">You got this!</div>
-            </div>
-            <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center">
-              <sc-for list="{{ targetAreas }}" as="t" hint-placeholder-count="3">
-                <div style="display:flex;align-items:center;gap:12px">
-                  <span style="flex:0 0 78px;font-family:Fredoka,sans-serif;font-weight:500;font-size:14px;color:#fff;text-shadow:0 1px 3px rgba(120,80,30,0.35);text-align:right">{{ t.name }}</span>
-                  <div style="flex:1;height:22px;border-radius:999px;background:#f0897c;overflow:hidden;box-shadow:inset 0 1px 3px rgba(120,40,30,0.25)">
-                    <div style="{{ t.fillStyle }}"></div>
+                <!-- mascot + thought bubble (centered group) -->
+                <div ref="{{ mascotRef }}"
+                  style="position:absolute;top:50px;left:50%;width:240px;display:flex;flex-direction:column;align-items:center;animation:floatMascot 5s ease-in-out infinite;z-index:4">
+                  <!-- thought bubble -->
+                  <div
+                    style="display:flex;align-items:center;justify-content:center;text-align:center;width:196px;min-height:60px;padding:14px 22px;background:#fff;border:2.5px solid #dde8ee;border-radius:32px;box-shadow:0 10px 22px rgba(10,40,55,0.28)">
+                    <span ref="{{ subRef }}"
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:16.5px;line-height:1.18;color:#2a6076;text-align:center">Ready
+                      to start your scroll?</span>
                   </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-
-          <!-- Recommended Videos card -->
-          <div style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px 18px 22px">
-            <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:25px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3);margin-bottom:16px">Recommended Videos</div>
-            <div style="display:flex;gap:12px">
-              <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
-                <div style="flex:1;display:flex;flex-direction:column;gap:9px">
-                  <div style="position:relative;width:100%;aspect-ratio:3/4;border-radius:14px;overflow:hidden;box-shadow:0 6px 14px rgba(10,40,55,0.25)">
-                    <image-slot id="{{ v.id }}" shape="rounded" radius="14" style="width:100%;height:100%;display:block" placeholder="clip"></image-slot>
-                    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,30,40,0.55) 0%,transparent 42%);pointer-events:none"></div>
-                    <div style="position:absolute;top:8px;left:8px;right:8px;color:#fff;font-family:Nunito,sans-serif;font-weight:800;font-size:11px;line-height:1.18;text-shadow:0 1px 3px rgba(0,0,0,0.7);pointer-events:none">{{ v.caption }}</div>
-                  </div>
-                  <div style="display:flex;flex-direction:column;gap:3px;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(8,40,55,0.3)">
-                    <span>▶ 100K</span>
-                    <span>♥ 50K</span>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
-      </sc-if>
-
-      <!-- ════════════ FEED (core) ════════════ -->
-      <sc-if value="{{ isFeed }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch">
-        <sc-for list="{{ cards }}" as="card" hint-placeholder-count="3">
-          <div style="height:100%;min-height:100%;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;padding:46px 22px 104px;background:linear-gradient(165deg,#2c6379 0%,#1c4456 55%,#13303d 100%)">
-            <!-- top row -->
-            <div style="display:flex;align-items:center;justify-content:space-between">
-              <span style="{{ card.chipStyle }}">{{ card.category }}</span>
-              <div style="display:flex;align-items:center;gap:13px">
-                <span style="font-family:Fredoka,sans-serif;font-weight:500;font-size:14px;color:rgba(255,255,255,0.6)">{{ card.idx }} / {{ card.total }}</span>
-                <div onClick="{{ card.onSave }}" style="{{ card.saveBtnStyle }}">🔖</div>
-              </div>
-            </div>
-
-            <!-- prompt -->
-            <div style="margin-top:22px">
-              <div style="font-family:Fredoka,sans-serif;font-weight:500;font-size:20px;line-height:1.32;color:#dcf0f8">{{ card.scenario }}</div>
-              <div style="margin-top:13px;font-family:Nunito,sans-serif;font-weight:800;font-size:16.5px;line-height:1.35;color:#fff">{{ card.stem }}</div>
-            </div>
-
-            <!-- options -->
-            <div style="margin-top:18px;display:flex;flex-direction:column;gap:9px">
-              <sc-for list="{{ card.options }}" as="opt" hint-placeholder-count="4">
-                <div style="{{ opt.rowStyle }}" onClick="{{ opt.onPick }}">
-                  <span style="width:30px;height:30px;flex:0 0 30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.16);font-family:Fredoka,sans-serif;font-weight:600;font-size:15px;color:#fff">{{ opt.letter }}</span>
-                  <span style="flex:1">{{ opt.text }}</span>
-                  <span style="{{ opt.markStyle }}">{{ opt.mark }}</span>
-                </div>
-              </sc-for>
-            </div>
-
-            <!-- explanation -->
-            <sc-if value="{{ card.answered }}" hint-placeholder-val="{{ false }}">
-              <div style="margin-top:14px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.16);border-radius:18px;padding:14px 16px">
-                <div style="{{ card.resultStyle }}">{{ card.resultLabel }}</div>
-                <div style="font-family:Nunito,sans-serif;font-weight:600;font-size:14px;line-height:1.4;color:#e7f4f9">{{ card.explanation }}</div>
-                <div style="margin-top:11px;display:flex;align-items:flex-start;gap:8px;background:rgba(124,170,240,0.14);border:1px solid rgba(124,170,240,0.3);border-radius:13px;padding:10px 12px">
-                  <span style="font-size:17px;line-height:1.2">🧠</span>
-                  <span style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;line-height:1.36;color:#cfe2ff"><span style="color:#9ab8ff">Coach · </span>{{ card.coachNote }}</span>
-                </div>
-              </div>
-              <div style="margin-top:auto;padding-top:14px;display:flex;flex-direction:column;align-items:center;gap:2px;animation:bobUp 1.6s ease-in-out infinite">
-                <svg width="22" height="14" viewBox="0 0 24 14" fill="none" stroke="rgba(255,255,255,0.85)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 11l10-8 10 8"/></svg>
-                <span style="font-family:Fredoka,sans-serif;font-weight:500;font-size:13px;color:rgba(255,255,255,0.8)">Swipe up for next</span>
-              </div>
-            </sc-if>
-          </div>
-        </sc-for>
-      </div>
-      </sc-if>
-
-      <!-- ════════════ PROGRESS ════════════ -->
-      <sc-if value="{{ isProgress }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:64px 20px 120px">
-        <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:32px;color:#fff;text-shadow:0 2px 8px rgba(8,40,55,0.4)">Your Progress</div>
-
-        <!-- Level card -->
-        <div style="margin-top:18px;background:linear-gradient(135deg,#eedcb2,#d6a570);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px;display:flex;align-items:center;gap:18px">
-          <div style="position:relative;width:84px;height:84px;flex:0 0 84px;border-radius:50%;background:conic-gradient(#3f8198 0% 68%,rgba(255,255,255,0.5) 68% 100%);display:flex;align-items:center;justify-content:center">
-            <div style="width:64px;height:64px;border-radius:50%;background:#e7c692;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:600;font-size:30px;color:#fff;text-shadow:0 2px 4px rgba(120,80,30,0.4)">6</div>
-          </div>
-          <div style="flex:1">
-            <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:23px;color:#fff;text-shadow:0 2px 4px rgba(120,80,30,0.35)">Level 6 · Logician</div>
-            <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:14px;color:#fffaf0;margin-top:2px">1,240 / 1,800 XP</div>
-            <div style="height:9px;border-radius:999px;background:rgba(255,255,255,0.4);margin-top:8px;overflow:hidden"><div style="width:68%;height:100%;border-radius:999px;background:#3f8198"></div></div>
-          </div>
-        </div>
-
-        <!-- Mastery -->
-        <div style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px">
-          <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3);margin-bottom:16px">Concept Mastery</div>
-          <div style="display:flex;flex-direction:column;gap:15px">
-            <sc-for list="{{ mastery }}" as="m" hint-placeholder-count="8">
-              <div>
-                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
-                  <span style="font-family:Nunito,sans-serif;font-weight:800;font-size:14.5px;color:#fff;text-shadow:0 1px 2px rgba(8,40,55,0.3)">{{ m.name }}</span>
-                  <span style="{{ m.tagStyle }}">{{ m.tag }}</span>
-                </div>
-                <div style="height:11px;border-radius:999px;background:rgba(255,255,255,0.32);overflow:hidden"><div style="{{ m.fillStyle }}"></div></div>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-
-        <!-- Weekly activity -->
-        <div style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px">
-          <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3)">This Week</div>
-          <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;color:#eaf6fb;margin-top:2px">214 drills · best day Wednesday</div>
-          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;height:120px;margin-top:16px">
-            <sc-for list="{{ weekBars }}" as="b" hint-placeholder-count="7">
-              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:flex-end">
-                <div style="{{ b.barStyle }}"></div>
-                <span style="font-family:Fredoka,sans-serif;font-weight:500;font-size:12px;color:#eaf6fb">{{ b.label }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-      </sc-if>
-
-      <!-- ════════════ PROFILE ════════════ -->
-      <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:60px 20px 120px">
-        <div onClick="{{ openSettings }}" style="position:absolute;top:58px;right:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.16);border:1.5px solid rgba(255,255,255,0.35);box-shadow:0 3px 8px rgba(10,40,55,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
-          <div style="width:106px;height:106px;border-radius:50%;background:linear-gradient(180deg,#cfeaf2,#7cb7cc);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 24px rgba(10,40,55,0.3);border:3px solid rgba(255,255,255,0.7)"><img src="assets/jiffy-head.png" alt="Jiffy" style="width:88px;height:88px;object-fit:contain"/></div>
-          <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:27px;color:#fff;text-shadow:0 2px 6px rgba(8,40,55,0.4)">Sam Rivera</div>
-          <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:14px;color:#dceef5;margin-top:-4px">@sam · Level 6 Logician · 🔥 7-day streak</div>
-        </div>
-
-        <!-- Stats -->
-        <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
-          <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
-            <div style="background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:22px;padding:16px 18px;box-shadow:0 10px 24px rgba(10,40,55,0.2)">
-              <div style="font-size:24px">{{ s.icon }}</div>
-              <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:28px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3);line-height:1.1;margin-top:4px">{{ s.value }}</div>
-              <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;color:#eaf6fb;margin-top:1px">{{ s.label }}</div>
-            </div>
-          </sc-for>
-        </div>
-
-        <!-- Achievements -->
-        <div style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px">
-          <div style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3);margin-bottom:16px">Achievements</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
-            <sc-for list="{{ badges }}" as="b" hint-placeholder-count="6">
-              <div style="{{ b.wrapStyle }}">
-                <div style="{{ b.iconStyle }}">{{ b.icon }}</div>
-                <span style="font-family:Fredoka,sans-serif;font-weight:500;font-size:12px;color:#fff;text-align:center;line-height:1.2;text-shadow:0 1px 3px rgba(8,40,55,0.35)">{{ b.label }}</span>
-              </div>
-            </sc-for>
-          </div>
-        </div>
-      </div>
-      </sc-if>
-
-      <!-- ════════════ SETTINGS SHEET ════════════ -->
-      <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;background:linear-gradient(180deg,#1c4456 0%,#13303d 60%,#0e2531 100%)">
-        <!-- header -->
-        <div style="flex:0 0 auto;padding:58px 18px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,0.1)">
-          <div onClick="{{ closeSettings }}" style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-          </div>
-          <span style="font-family:Fredoka,sans-serif;font-weight:600;font-size:27px;color:#fff;text-shadow:0 2px 6px rgba(8,40,55,0.4)">Settings</span>
-        </div>
-        <!-- scroll -->
-        <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 40px">
-          <sc-for list="{{ settingsSections }}" as="sec" hint-placeholder-count="4">
-            <div style="margin-bottom:22px">
-              <div style="display:flex;align-items:center;gap:8px;margin:0 4px 9px">
-                <span style="font-size:16px">{{ sec.icon }}</span>
-                <span style="font-family:Fredoka,sans-serif;font-weight:600;font-size:14px;letter-spacing:0.6px;color:rgba(234,246,251,0.8);text-transform:uppercase">{{ sec.title }}</span>
-              </div>
-              <div style="background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.14);border-radius:20px;overflow:hidden">
-                <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="3">
-                  <div style="{{ it.rowStyle }}" onClick="{{ it.onClick }}">
-                    <div style="flex:1;min-width:0">
-                      <div style="{{ it.labelStyle }}">{{ it.label }}</div>
-                      <sc-if value="{{ it.hasSub }}" hint-placeholder-val="{{ false }}">
-                        <div style="{{ it.subStyle }}">{{ it.sub }}</div>
-                      </sc-if>
+                  <!-- trailing dots -->
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;margin:7px 0 -4px">
+                    <div
+                      style="width:14px;height:14px;border-radius:50%;background:#fff;border:2.5px solid #dde8ee;box-shadow:0 3px 6px rgba(10,40,55,0.2)">
                     </div>
-                    <sc-if value="{{ it.isToggle }}" hint-placeholder-val="{{ false }}">
-                      <div style="{{ it.trackStyle }}"><div style="{{ it.knobStyle }}"></div></div>
-                    </sc-if>
-                    <sc-if value="{{ it.isLink }}" hint-placeholder-val="{{ true }}">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
-                    </sc-if>
+                    <div
+                      style="width:9px;height:9px;border-radius:50%;background:#fff;border:2px solid #dde8ee;box-shadow:0 2px 4px rgba(10,40,55,0.2)">
+                    </div>
+                  </div>
+                  <!-- giraffe -->
+                  <img src="assets/jiffy-mascot.png" alt="Jiffy mascot"
+                    style="width:120px;display:block;filter:drop-shadow(0 10px 14px rgba(20,50,65,0.38))" />
+                </div>
+                <!-- time -->
+                <div style="position:absolute;left:22px;bottom:16px;right:22px">
+                  <div style="display:flex;align-items:flex-end;gap:10px">
+                    <span ref="{{ timeRef }}"
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:58px;line-height:0.9;color:#fff;text-shadow:0 3px 10px rgba(10,45,60,0.45)">8:00
+                      AM</span>
+                    <span ref="{{ periodRef }}"
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 6px rgba(10,45,60,0.45);padding-bottom:8px">EST</span>
+                    <span ref="{{ weatherRef }}"
+                      style="font-size:40px;margin-left:auto;padding-bottom:2px;filter:drop-shadow(0 3px 6px rgba(10,45,60,0.3))">⛅</span>
+                  </div>
+                  <div style="height:3px;background:rgba(255,255,255,0.75);border-radius:3px;margin-top:8px"></div>
+                </div>
+              </div>
+
+              <!-- BODY -->
+              <div style="padding:10px 20px 120px">
+                <div ref="{{ greetRef }}"
+                  style="font-family:Fredoka,sans-serif;font-weight:600;font-size:33px;line-height:1.05;color:#fff;text-shadow:0 2px 8px rgba(8,40,55,0.4);white-space:nowrap;overflow:hidden">
+                  GOOD MORNING, SAM!</div>
+
+                <!-- Streak card -->
+                <div
+                  style="margin-top:22px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px 20px 24px">
+                  <div
+                    style="font-family:Fredoka,sans-serif;font-weight:600;font-size:24px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3)">
+                    Streak: 7 days! 🔥</div>
+                  <div style="height:2px;background:rgba(255,255,255,0.45);border-radius:2px;margin:12px 0 16px"></div>
+                  <div style="display:flex;justify-content:space-between">
+                    <sc-for list="{{ weekDays }}" as="d" hint-placeholder-count="7">
+                      <div style="display:flex;flex-direction:column;align-items:center;gap:9px">
+                        <span
+                          style="font-family:Fredoka,sans-serif;font-weight:600;font-size:14px;color:#eef7fb;letter-spacing:0.5px">{{
+                          d.label }}</span>
+                        <div style="{{ d.circleStyle }}">{{ d.num }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <!-- Target Areas card -->
+                <div
+                  style="margin-top:18px;background:linear-gradient(135deg,#eedcb2 0%,#d6a570 100%);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:22px 22px 24px;display:flex;gap:14px">
+                  <div style="flex:0 0 auto">
+                    <div
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:26px;color:#fff;text-shadow:0 2px 5px rgba(120,80,30,0.35);line-height:1.05">
+                      Target<br>Areas</div>
+                    <div
+                      style="font-family:Fredoka,sans-serif;font-weight:500;font-size:16px;color:#fffaf0;margin-top:6px">
+                      You got this!</div>
+                  </div>
+                  <div style="flex:1;display:flex;flex-direction:column;gap:14px;justify-content:center">
+                    <sc-for list="{{ targetAreas }}" as="t" hint-placeholder-count="3">
+                      <div style="display:flex;align-items:center;gap:12px">
+                        <span
+                          style="flex:0 0 78px;font-family:Fredoka,sans-serif;font-weight:500;font-size:14px;color:#fff;text-shadow:0 1px 3px rgba(120,80,30,0.35);text-align:right">{{
+                          t.name }}</span>
+                        <div
+                          style="flex:1;height:22px;border-radius:999px;background:#f0897c;overflow:hidden;box-shadow:inset 0 1px 3px rgba(120,40,30,0.25)">
+                          <div style="{{ t.fillStyle }}"></div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+
+                <!-- Recommended Videos card -->
+                <div
+                  style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px 18px 22px">
+                  <div
+                    style="font-family:Fredoka,sans-serif;font-weight:600;font-size:25px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3);margin-bottom:16px">
+                    Recommended Videos</div>
+                  <div style="display:flex;gap:12px">
+                    <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+                      <div style="flex:1;display:flex;flex-direction:column;gap:9px">
+                        <div
+                          style="position:relative;width:100%;aspect-ratio:3/4;border-radius:14px;overflow:hidden;box-shadow:0 6px 14px rgba(10,40,55,0.25)">
+                          <image-slot id="{{ v.id }}" shape="rounded" radius="14"
+                            style="width:100%;height:100%;display:block" placeholder="clip"></image-slot>
+                          <div
+                            style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,30,40,0.55) 0%,transparent 42%);pointer-events:none">
+                          </div>
+                          <div
+                            style="position:absolute;top:8px;left:8px;right:8px;color:#fff;font-family:Nunito,sans-serif;font-weight:800;font-size:11px;line-height:1.18;text-shadow:0 1px 3px rgba(0,0,0,0.7);pointer-events:none">
+                            {{ v.caption }}</div>
+                        </div>
+                        <div
+                          style="display:flex;flex-direction:column;gap:3px;font-family:Fredoka,sans-serif;font-weight:500;font-size:15px;color:#fff;text-shadow:0 1px 3px rgba(8,40,55,0.3)">
+                          <span>▶ 100K</span>
+                          <span>♥ 50K</span>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ════════════ FEED (Drills · card scrolling) ════════════ -->
+        <sc-if value="{{ isFeed }}" hint-placeholder-val="{{ false }}">
+          <div ref="{{ feedRef }}"
+            style="position:absolute;inset:0;overflow-y:auto;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch">
+            <sc-for list="{{ cards }}" as="card" hint-placeholder-count="2">
+
+              <!-- ░░ QUESTION SCREEN ░░ -->
+              <div
+                style="height:100%;min-height:100%;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;padding:104px 22px 96px 22px;background:linear-gradient(165deg,#2c6379 0%,#1c4456 55%,#13303d 100%)">
+
+                <!-- header: + create -->
+                <div onClick="{{ card.onCreate }}"
+                  style="position:absolute;top:52px;left:20px;display:flex;align-items:center;gap:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;z-index:6">
+                  <div
+                    style="width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"
+                      stroke-linecap="round">
+                      <path d="M12 5v14M5 12h14" />
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- right sidebar (pinned bottom-right, above nav) -->
+                <div
+                  style="position:absolute;right:13px;bottom:100px;display:flex;flex-direction:column;align-items:center;gap:22px;z-index:6">
+                  <div onClick="{{ card.onLike }}"
+                    style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="{{ card.heartFill }}"
+                      stroke="{{ card.heartStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1.1-1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+                    </svg>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{
+                      card.likeCount }}</span>
+                  </div>
+                  <div onClick="{{ card.onSave }}"
+                    style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                    <svg width="33" height="33" viewBox="0 0 24 24" fill="{{ card.saveFill }}"
+                      stroke="{{ card.saveStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                    </svg>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{
+                      card.saveCount }}</span>
+                  </div>
+                  <div onClick="{{ card.onHighlight }}"
+                    style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                    <svg width="33" height="33" viewBox="0 0 24 24" fill="none" stroke="{{ card.hlStroke }}"
+                      stroke-width="2">
+                      <circle cx="12" cy="12" r="9" />
+                      <circle cx="12" cy="12" r="5" />
+                      <circle cx="12" cy="12" r="1.6" fill="{{ card.hlStroke }}" />
+                    </svg>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{
+                      card.hlCount }}</span>
+                  </div>
+                  <div
+                    style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M22 2 11 13" />
+                      <path d="M22 2 15 22l-4-9-9-4z" />
+                    </svg>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">Share</span>
+                  </div>
+                </div>
+
+                <!-- category chip (top-right) -->
+                <div style="position:absolute;top:52px;right:18px;z-index:6">
+                  <span style="{{ card.chipStyle }}">{{ card.category }}</span>
+                </div>
+
+                <!-- scrollable content (grows to fill, scrolls if the question is long) -->
+                <div
+                  style="flex:1;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column">
+                  <!-- prompt -->
+                  <div style="margin-top:4px">
+                    <div
+                      style="font-family:Fredoka,sans-serif;font-weight:500;font-size:24px;line-height:1.3;color:#dcf0f8">
+                      {{ card.scenario }}</div>
+                    <div
+                      style="margin-top:15px;font-family:Nunito,sans-serif;font-weight:800;font-size:20px;line-height:1.34;color:#fff">
+                      {{ card.stem }}</div>
+                  </div>
+
+                  <!-- options -->
+                  <div style="margin-top:24px;margin-right:48px;display:flex;flex-direction:column;gap:12px">
+                    <sc-for list="{{ card.options }}" as="opt" hint-placeholder-count="4">
+                      <div style="{{ opt.rowStyle }}" onClick="{{ opt.onPick }}">
+                        <span
+                          style="width:36px;height:36px;flex:0 0 36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.16);font-family:Fredoka,sans-serif;font-weight:600;font-size:18px;color:#fff">{{
+                          opt.letter }}</span>
+                        <span style="flex:1">{{ opt.text }}</span>
+                        <sc-if value="{{ opt.showTry }}" hint-placeholder-val="{{ false }}">
+                          <span
+                            style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#ffb3a8;white-space:nowrap">Try
+                            again!</span>
+                        </sc-if>
+                        <span style="{{ opt.markStyle }}">{{ opt.mark }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+
+                  <!-- giraffe + explanation bubble (on reveal) -->
+                  <sc-if value="{{ card.revealed }}" hint-placeholder-val="{{ false }}">
+                    <div
+                      style="margin-top:auto;padding-top:18px;margin-right:48px;display:flex;align-items:flex-end;gap:10px">
+                      <img src="assets/jiffy-head.png" alt="Jiffy"
+                        style="width:78px;height:78px;object-fit:contain;flex:0 0 auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.35));animation:bobUp 1.6s ease-in-out infinite" />
+                      <div onClick="{{ card.onWhy }}"
+                        style="flex:1;position:relative;background:#fff;border-radius:20px;padding:13px 17px;cursor:pointer;box-shadow:0 8px 18px rgba(10,40,55,0.32);-webkit-tap-highlight-color:transparent;margin-bottom:4px">
+                        <span
+                          style="display:block;font-family:Nunito,sans-serif;font-weight:800;font-size:13.5px;line-height:1.42;color:#2a6076">{{
+                          card.explanation }}</span>
+                        <span
+                          style="display:block;margin-top:7px;font-family:Fredoka,sans-serif;font-weight:600;font-size:12px;color:#3f8198">Watch
+                          the video ↓</span>
+                      </div>
+                    </div>
+                  </sc-if>
+                </div>
+              </div>
+
+              <!-- ░░ VIDEO SCREEN (only when failed twice) ░░ -->
+              <sc-if value="{{ card.showVideo }}" hint-placeholder-val="{{ false }}">
+                <div
+                  style="height:100%;min-height:100%;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;padding:74px 74px 104px 22px;background:linear-gradient(165deg,#16323e 0%,#0c1d25 100%)">
+
+                  <!-- right sidebar (with comments) -->
+                  <div
+                    style="position:absolute;right:13px;top:58%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:24px;z-index:6">
+                    <div onClick="{{ card.onLike }}"
+                      style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="{{ card.heartFill }}"
+                        stroke="{{ card.heartStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                          d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1.1-1a5.5 5.5 0 0 0-7.8 7.8l1.1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z" />
+                      </svg>
+                      <span
+                        style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{
+                        card.likeCount }}</span>
+                    </div>
+                    <div
+                      style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                          d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.4 8.4 0 0 1-4-1L3 20l1-5.5a8.4 8.4 0 0 1-1-4A8.4 8.4 0 0 1 11.5 2 8.4 8.4 0 0 1 21 11.5z" />
+                      </svg>
+                      <span
+                        style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">418</span>
+                    </div>
+                    <div onClick="{{ card.onSave }}"
+                      style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                      <svg width="33" height="33" viewBox="0 0 24 24" fill="{{ card.saveFill }}"
+                        stroke="{{ card.saveStroke }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                      </svg>
+                      <span
+                        style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">{{
+                        card.saveCount }}</span>
+                    </div>
+                    <div
+                      style="display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 2 11 13" />
+                        <path d="M22 2 15 22l-4-9-9-4z" />
+                      </svg>
+                      <span
+                        style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.5)">Share</span>
+                    </div>
+                  </div>
+
+                  <!-- player -->
+                  <div style="margin:auto 0">
+                    <span style="{{ card.chipStyle }}">{{ card.category }}</span>
+                    <div
+                      style="margin-top:16px;position:relative;width:100%;aspect-ratio:1/1;border-radius:22px;overflow:hidden;background:repeating-linear-gradient(135deg,#1c3a47 0 14px,#1f4250 14px 28px);box-shadow:0 14px 34px rgba(0,0,0,0.4);display:flex;align-items:center;justify-content:center">
+                      <div
+                        style="width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,0.92);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,0.35)">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="#16323e">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                      <span
+                        style="position:absolute;left:16px;bottom:14px;right:16px;font-family:'SF Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.5px;color:rgba(255,255,255,0.55)">02:14
+                        · concept walkthrough</span>
+                    </div>
+                    <div
+                      style="margin-top:18px;font-family:Fredoka,sans-serif;font-weight:600;font-size:24px;line-height:1.12;color:#fff;text-shadow:0 2px 8px rgba(8,40,55,0.4)">
+                      Video explaining<br>that concept!</div>
+                    <div
+                      style="margin-top:10px;display:flex;align-items:flex-start;gap:8px;background:rgba(124,170,240,0.14);border:1px solid rgba(124,170,240,0.3);border-radius:13px;padding:11px 13px">
+                      <span style="font-size:17px;line-height:1.2">🧠</span>
+                      <span
+                        style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;line-height:1.38;color:#cfe2ff">{{
+                        card.explanation }}</span>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <!-- ════════════ PROGRESS ════════════ -->
+        <sc-if value="{{ isProgress }}" hint-placeholder-val="{{ false }}">
+          <div
+            style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:64px 20px 120px">
+            <div
+              style="font-family:Fredoka,sans-serif;font-weight:600;font-size:32px;color:#fff;text-shadow:0 2px 8px rgba(8,40,55,0.4)">
+              Your Progress</div>
+
+            <!-- Level card -->
+            <div
+              style="margin-top:18px;background:linear-gradient(135deg,#eedcb2,#d6a570);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px;display:flex;align-items:center;gap:18px">
+              <div
+                style="position:relative;width:84px;height:84px;flex:0 0 84px;border-radius:50%;background:conic-gradient(#3f8198 0% 68%,rgba(255,255,255,0.5) 68% 100%);display:flex;align-items:center;justify-content:center">
+                <div
+                  style="width:64px;height:64px;border-radius:50%;background:#e7c692;display:flex;align-items:center;justify-content:center;font-family:Fredoka,sans-serif;font-weight:600;font-size:30px;color:#fff;text-shadow:0 2px 4px rgba(120,80,30,0.4)">
+                  6</div>
+              </div>
+              <div style="flex:1">
+                <div
+                  style="font-family:Fredoka,sans-serif;font-weight:600;font-size:23px;color:#fff;text-shadow:0 2px 4px rgba(120,80,30,0.35)">
+                  Level 6 · Logician</div>
+                <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:14px;color:#fffaf0;margin-top:2px">
+                  1,240 / 1,800 XP</div>
+                <div
+                  style="height:9px;border-radius:999px;background:rgba(255,255,255,0.4);margin-top:8px;overflow:hidden">
+                  <div style="width:68%;height:100%;border-radius:999px;background:#3f8198"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mastery -->
+            <div
+              style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px">
+              <div
+                style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3);margin-bottom:16px">
+                Concept Mastery</div>
+              <div style="display:flex;flex-direction:column;gap:15px">
+                <sc-for list="{{ mastery }}" as="m" hint-placeholder-count="8">
+                  <div>
+                    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+                      <span
+                        style="font-family:Nunito,sans-serif;font-weight:800;font-size:14.5px;color:#fff;text-shadow:0 1px 2px rgba(8,40,55,0.3)">{{
+                        m.name }}</span>
+                      <span style="{{ m.tagStyle }}">{{ m.tag }}</span>
+                    </div>
+                    <div style="height:11px;border-radius:999px;background:rgba(255,255,255,0.32);overflow:hidden">
+                      <div style="{{ m.fillStyle }}"></div>
+                    </div>
                   </div>
                 </sc-for>
               </div>
             </div>
-          </sc-for>
-          <div style="text-align:center;font-family:Nunito,sans-serif;font-weight:700;font-size:12px;color:rgba(234,246,251,0.4);margin-top:8px">LSAT Reasoning Coach · v2.4.0</div>
-        </div>
-      </div>
-      </sc-if>
 
-      <!-- ════════════ TAB BAR ════════════ -->
-      <div style="position:absolute;left:0;right:0;bottom:0;height:94px;padding:10px 12px 28px;display:flex;align-items:flex-start;justify-content:space-around;background:linear-gradient(180deg,rgba(18,42,54,0) 0%,rgba(14,34,44,0.86) 48%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:40">
-        <div onClick="{{ goHome }}" style="{{ homeBtnStyle }}">
-          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>
-          <span>Home</span>
-        </div>
-        <div onClick="{{ goFeed }}" style="{{ feedBtnStyle }}">
-          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
-          <span>Drills</span>
-        </div>
-        <div onClick="{{ goProgress }}" style="{{ progressBtnStyle }}">
-          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V11M12 21V4M19 21V14"/></svg>
-          <span>Progress</span>
-        </div>
-        <div onClick="{{ goProfile }}" style="{{ profileBtnStyle }}">
-          <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
-          <span>Profile</span>
-        </div>
-      </div>
+            <!-- Weekly activity -->
+            <div
+              style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px">
+              <div
+                style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3)">
+                This Week</div>
+              <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;color:#eaf6fb;margin-top:2px">214
+                drills · best day Wednesday</div>
+              <div
+                style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;height:120px;margin-top:16px">
+                <sc-for list="{{ weekBars }}" as="b" hint-placeholder-count="7">
+                  <div
+                    style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:flex-end">
+                    <div style="{{ b.barStyle }}"></div>
+                    <span style="font-family:Fredoka,sans-serif;font-weight:500;font-size:12px;color:#eaf6fb">{{ b.label
+                      }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
 
+        <!-- ════════════ PROFILE ════════════ -->
+        <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ false }}">
+          <div
+            style="position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:60px 20px 120px">
+            <div onClick="{{ openSettings }}"
+              style="position:absolute;top:58px;right:20px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.16);border:1.5px solid rgba(255,255,255,0.35);box-shadow:0 3px 8px rgba(10,40,55,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;-webkit-tap-highlight-color:transparent">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                  d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+              <div
+                style="width:106px;height:106px;border-radius:50%;background:linear-gradient(180deg,#cfeaf2,#7cb7cc);display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 10px 24px rgba(10,40,55,0.3);border:3px solid rgba(255,255,255,0.7)">
+                <img src="assets/jiffy-head.png" alt="Jiffy" style="width:88px;height:88px;object-fit:contain" /></div>
+              <div
+                style="font-family:Fredoka,sans-serif;font-weight:600;font-size:27px;color:#fff;text-shadow:0 2px 6px rgba(8,40,55,0.4)">
+                Sam Rivera</div>
+              <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:14px;color:#dceef5;margin-top:-4px">
+                @sam · Level 6 Logician · 🔥 7-day streak</div>
+            </div>
+
+            <!-- Stats -->
+            <div style="margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+                <div
+                  style="background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:22px;padding:16px 18px;box-shadow:0 10px 24px rgba(10,40,55,0.2)">
+                  <div style="font-size:24px">{{ s.icon }}</div>
+                  <div
+                    style="font-family:Fredoka,sans-serif;font-weight:600;font-size:28px;color:#fff;text-shadow:0 2px 5px rgba(8,40,55,0.3);line-height:1.1;margin-top:4px">
+                    {{ s.value }}</div>
+                  <div
+                    style="font-family:Nunito,sans-serif;font-weight:700;font-size:13px;color:#eaf6fb;margin-top:1px">{{
+                    s.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- Achievements -->
+            <div onClick="{{ openAchievements }}"
+              style="margin-top:18px;background:linear-gradient(180deg,rgba(206,234,242,0.5),rgba(140,190,210,0.28));border:1.5px solid rgba(255,255,255,0.55);border-radius:26px;box-shadow:0 12px 30px rgba(10,40,55,0.22);padding:20px;cursor:pointer;-webkit-tap-highlight-color:transparent">
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                <div
+                  style="font-family:Fredoka,sans-serif;font-weight:600;font-size:22px;color:#fff;text-shadow:0 2px 4px rgba(8,40,55,0.3)">
+                  Achievements</div>
+                <div
+                  style="display:flex;align-items:center;gap:5px;font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:rgba(255,255,255,0.85)">
+                  <span>See all</span>
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 6l6 6-6 6" />
+                  </svg>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+                <sc-for list="{{ badges }}" as="b" hint-placeholder-count="6">
+                  <div style="{{ b.wrapStyle }}">
+                    <div style="{{ b.iconStyle }}">{{ b.icon }}</div>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:500;font-size:12px;color:#fff;text-align:center;line-height:1.2;text-shadow:0 1px 3px rgba(8,40,55,0.35)">{{
+                      b.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ════════════ ACHIEVEMENTS SHEET ════════════ -->
+        <sc-if value="{{ achievementsOpen }}" hint-placeholder-val="{{ false }}">
+          <div
+            style="position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;background:linear-gradient(180deg,#1c4456 0%,#13303d 60%,#0e2531 100%)">
+            <!-- header -->
+            <div
+              style="flex:0 0 auto;padding:58px 18px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,0.1)">
+              <div onClick="{{ closeAchievements }}"
+                style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </div>
+              <div>
+                <div
+                  style="font-family:Fredoka,sans-serif;font-weight:600;font-size:25px;color:#fff;text-shadow:0 2px 6px rgba(8,40,55,0.4)">
+                  Achievements</div>
+                <div style="font-family:Nunito,sans-serif;font-weight:700;font-size:12.5px;color:rgba(234,246,251,0.7)">
+                  {{ unlockedCount }} of {{ achTotal }} unlocked</div>
+              </div>
+            </div>
+            <!-- scroll -->
+            <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px 40px">
+              <!-- grid -->
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px 10px;margin-bottom:6px">
+                <sc-for list="{{ achGrid }}" as="a" hint-placeholder-count="6">
+                  <div style="{{ a.wrapStyle }}" onClick="{{ a.onClick }}">
+                    <div style="{{ a.iconStyle }}">{{ a.icon }}</div>
+                    <span style="{{ a.labelStyle }}">{{ a.name }}</span>
+                    <span style="{{ a.ribbonStyle }}">{{ a.ribbon }}</span>
+                  </div>
+                </sc-for>
+              </div>
+
+              <!-- detail -->
+              <div
+                style="margin-top:18px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.16);border-radius:22px;padding:18px">
+                <div style="display:flex;align-items:center;gap:14px">
+                  <div style="{{ selDetail.bigIconStyle }}">{{ selDetail.icon }}</div>
+                  <div style="flex:1;min-width:0">
+                    <div
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:21px;color:#fff;line-height:1.1">
+                      {{ selDetail.name }}</div>
+                    <div style="{{ selDetail.statusStyle }}">{{ selDetail.statusLabel }}</div>
+                  </div>
+                </div>
+                <div
+                  style="margin-top:13px;font-family:Nunito,sans-serif;font-weight:700;font-size:14px;line-height:1.42;color:#e7f4f9">
+                  {{ selDetail.desc }}</div>
+
+                <!-- progress -->
+                <div
+                  style="margin-top:15px;display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px">
+                  <span
+                    style="font-family:Fredoka,sans-serif;font-weight:600;font-size:13px;color:rgba(234,246,251,0.85)">Progress</span>
+                  <span
+                    style="font-family:Nunito,sans-serif;font-weight:800;font-size:12.5px;color:rgba(234,246,251,0.7)">{{
+                    selDetail.progressLabel }}</span>
+                </div>
+                <div style="height:11px;border-radius:999px;background:rgba(255,255,255,0.16);overflow:hidden">
+                  <div style="{{ selDetail.barFillStyle }}"></div>
+                </div>
+
+                <!-- tiers -->
+                <div style="margin-top:18px;display:flex;flex-direction:column;gap:13px">
+                  <sc-for list="{{ selDetail.tiers }}" as="t" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:12px">
+                      <div style="{{ t.dotStyle }}">{{ t.mark }}</div>
+                      <div style="flex:1">
+                        <div style="{{ t.nameStyle }}">{{ t.name }}</div>
+                        <div style="{{ t.reqStyle }}">{{ t.req }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ════════════ SETTINGS SHEET ════════════ -->
+        <sc-if value="{{ settingsOpen }}" hint-placeholder-val="{{ false }}">
+          <div
+            style="position:absolute;inset:0;z-index:60;display:flex;flex-direction:column;background:linear-gradient(180deg,#1c4456 0%,#13303d 60%,#0e2531 100%)">
+            <!-- header -->
+            <div
+              style="flex:0 0 auto;padding:58px 18px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid rgba(255,255,255,0.1)">
+              <div onClick="{{ closeSettings }}"
+                style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </div>
+              <span
+                style="font-family:Fredoka,sans-serif;font-weight:600;font-size:27px;color:#fff;text-shadow:0 2px 6px rgba(8,40,55,0.4)">Settings</span>
+            </div>
+            <!-- scroll -->
+            <div style="flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:18px 18px 40px">
+              <sc-for list="{{ settingsSections }}" as="sec" hint-placeholder-count="4">
+                <div style="margin-bottom:22px">
+                  <div style="display:flex;align-items:center;gap:8px;margin:0 4px 9px">
+                    <span style="font-size:16px">{{ sec.icon }}</span>
+                    <span
+                      style="font-family:Fredoka,sans-serif;font-weight:600;font-size:14px;letter-spacing:0.6px;color:rgba(234,246,251,0.8);text-transform:uppercase">{{
+                      sec.title }}</span>
+                  </div>
+                  <div
+                    style="background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.14);border-radius:20px;overflow:hidden">
+                    <sc-for list="{{ sec.items }}" as="it" hint-placeholder-count="3">
+                      <div style="{{ it.rowStyle }}" onClick="{{ it.onClick }}">
+                        <div style="flex:1;min-width:0">
+                          <div style="{{ it.labelStyle }}">{{ it.label }}</div>
+                          <sc-if value="{{ it.hasSub }}" hint-placeholder-val="{{ false }}">
+                            <div style="{{ it.subStyle }}">{{ it.sub }}</div>
+                          </sc-if>
+                        </div>
+                        <sc-if value="{{ it.isToggle }}" hint-placeholder-val="{{ false }}">
+                          <div style="{{ it.trackStyle }}">
+                            <div style="{{ it.knobStyle }}"></div>
+                          </div>
+                        </sc-if>
+                        <sc-if value="{{ it.isLink }}" hint-placeholder-val="{{ true }}">
+                          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.5)"
+                            stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 6l6 6-6 6" />
+                          </svg>
+                        </sc-if>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </sc-for>
+              <div
+                style="text-align:center;font-family:Nunito,sans-serif;font-weight:700;font-size:12px;color:rgba(234,246,251,0.4);margin-top:8px">
+                LSAT Reasoning Coach · v2.4.0</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ════════════ TAB BAR ════════════ -->
+        <div
+          style="position:absolute;left:0;right:0;bottom:0;height:82px;padding:8px 12px 22px;display:flex;align-items:flex-start;justify-content:space-around;background:linear-gradient(180deg,rgba(18,42,54,0) 0%,rgba(14,34,44,0.86) 48%);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:40">
+          <div onClick="{{ goHome }}" style="{{ homeBtnStyle }}">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z" />
+            </svg>
+            <span>Home</span>
+          </div>
+          <div onClick="{{ goFeed }}" style="{{ feedBtnStyle }}">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2 4 14h6l-1 8 9-12h-6z" />
+            </svg>
+            <span>Drills</span>
+          </div>
+          <div onClick="{{ goProgress }}" style="{{ progressBtnStyle }}">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 21V11M12 21V4M19 21V14" />
+            </svg>
+            <span>Progress</span>
+          </div>
+          <div onClick="{{ goProfile }}" style="{{ profileBtnStyle }}">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1"
+              stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="8" r="4" />
+              <path d="M4 21a8 8 0 0 1 16 0" />
+            </svg>
+            <span>Profile</span>
+          </div>
+        </div>
+
+      </div>
     </div>
-  </x-import>
-</div>
-</x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:458,&quot;height&quot;:930},&quot;homeVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;morning&quot;,&quot;afternoon&quot;,&quot;night&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;},&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ronika&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;}}">
+  </x-dc>
+  <script type="text/x-dc" data-dc-script
+    data-props="{&quot;$preview&quot;:{&quot;width&quot;:458,&quot;height&quot;:930},&quot;homeVariant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;auto&quot;,&quot;morning&quot;,&quot;afternoon&quot;,&quot;night&quot;],&quot;default&quot;:&quot;auto&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;},&quot;userName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Ronika&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;}}">
 class Component extends DCLogic {
   constructor(props){
     super(props);
@@ -340,7 +760,8 @@ class Component extends DCLogic {
     this.bgRef = React.createRef();
     this.cloudRef = React.createRef();
     this.mascotRef = React.createRef();
-    this.state = { tab:'home', answers:{}, liked:{}, saved:{}, settingsOpen:false,
+    this.feedRef = React.createRef();
+    this.state = { tab:'home', answers:{}, liked:{}, saved:{}, highlighted:{}, settingsOpen:false, achievementsOpen:false, selectedAch:'streak',
       toggles:{ push:true, daily:true, streak:true, dataShare:false, twoFA:true, darkMode:false } };
 
     this.drills = [
@@ -441,49 +862,69 @@ class Component extends DCLogic {
     while(el.scrollWidth > el.clientWidth && size > 15){ size -= 0.5; el.style.fontSize = size + 'px'; }
   }
   pick(id, oi){
-    if(this.state.answers[id] !== undefined) return;
-    this.setState(s=>({ answers:{...s.answers, [id]:oi} }));
+    const cur = this.state.answers[id] || { wrongs:[], status:'unanswered' };
+    if(cur.status==='correct' || cur.status==='revealed') return;
+    const drill = this.drills.find(d=>d.id===id);
+    let next;
+    if(oi === drill.correct){
+      next = { wrongs:cur.wrongs, status:'correct' };
+    } else {
+      const wrongs = cur.wrongs.includes(oi) ? cur.wrongs : cur.wrongs.concat(oi);
+      next = { wrongs, status: 'revealed' };
+    }
+    this.setState(s=>({ answers:{...s.answers, [id]:next} }));
     if(navigator.vibrate) navigator.vibrate(8);
   }
+  scrollNext(){ const el = this.feedRef.current; if(el) el.scrollBy({ top: el.clientHeight, behavior:'smooth' }); }
   toggleLike(id){ this.setState(s=>({ liked:{...s.liked, [id]:!s.liked[id]} })); }
   toggleSave(id){ this.setState(s=>({ saved:{...s.saved, [id]:!s.saved[id]} })); }
+  toggleHighlight(id){ this.setState(s=>({ highlighted:{...s.highlighted, [id]:!s.highlighted[id]} })); }
   openSettings(){ this.setState({ settingsOpen:true }); }
   closeSettings(){ this.setState({ settingsOpen:false }); }
+  openAchievements(){ this.setState({ achievementsOpen:true }); }
+  closeAchievements(){ this.setState({ achievementsOpen:false }); }
+  selectAchievement(id){ this.setState({ selectedAch:id }); }
   toggleSetting(key){ this.setState(s=>({ toggles:{...s.toggles, [key]:!s.toggles[key]} })); }
 
   renderVals(){
-    const { tab, answers, liked, saved } = this.state;
+    const { tab, answers, liked, saved, highlighted } = this.state;
 
-    const optBase = { display:'flex', alignItems:'center', gap:12, padding:'12px 15px', borderRadius:16, fontFamily:'Nunito, sans-serif', fontSize:15, fontWeight:700, lineHeight:1.28, cursor:'pointer', border:'2px solid rgba(255,255,255,0.16)', background:'rgba(255,255,255,0.07)', color:'#eef8fc', textAlign:'left', WebkitTapHighlightColor:'transparent' };
+    const optBase = { display:'flex', alignItems:'center', gap:14, padding:'16px', borderRadius:18, fontFamily:'Nunito, sans-serif', fontSize:17, fontWeight:700, lineHeight:1.3, cursor:'pointer', border:'2px solid rgba(255,255,255,0.16)', background:'rgba(255,255,255,0.07)', color:'#eef8fc', textAlign:'left', WebkitTapHighlightColor:'transparent' };
     const optCorrect = { ...optBase, background:'rgba(124,220,160,0.20)', border:'2px solid #7cdca0', color:'#eafff1', cursor:'default' };
     const optWrong = { ...optBase, background:'rgba(240,137,124,0.18)', border:'2px solid #f0897c', color:'#ffeae6', cursor:'default' };
     const optDim = { ...optBase, opacity:0.45, cursor:'default' };
 
     const cards = this.drills.map((d, di)=>{
-      const chosen = answers[d.id];
-      const answered = chosen !== undefined;
-      const isCorrect = answered && chosen === d.correct;
+      const st = answers[d.id] || { wrongs:[], status:'unanswered' };
+      const revealed = st.status === 'revealed';
+      const correctChosen = st.status === 'correct';
+      const done = revealed || correctChosen;
       const options = d.options.map((t, oi)=>{
-        let rowStyle = optBase, mark='', markColor='transparent';
-        if(answered){
+        let rowStyle = optBase, mark='', markColor='transparent', showTry=false;
+        const isWrong = st.wrongs.includes(oi);
+        if(done){
           if(oi === d.correct){ rowStyle = optCorrect; mark='\u2713'; markColor='#7cdca0'; }
-          else if(oi === chosen){ rowStyle = optWrong; mark='\u2717'; markColor='#f0897c'; }
+          else if(isWrong){ rowStyle = optWrong; mark='\u2717'; markColor='#f0897c'; }
           else { rowStyle = optDim; }
+        } else if(isWrong){
+          rowStyle = optWrong; showTry = true;
         }
-        return { letter:'ABCD'[oi], text:t, rowStyle, mark,
-          markStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:18, color:markColor, marginLeft:4 },
+        return { letter:'ABCD'[oi], text:t, rowStyle, mark, showTry,
+          markStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:21, color:markColor, marginLeft:4 },
           onPick:()=>this.pick(d.id, oi) };
       });
-      const isSaved = !!saved[d.id];
+      const isLiked = !!liked[d.id], isSaved = !!saved[d.id], isHl = !!highlighted[d.id];
       return {
         id:d.id, category:d.category, scenario:d.scenario, stem:d.stem, options,
-        idx:di+1, total:this.drills.length, answered,
-        chipStyle:{ display:'inline-flex', alignItems:'center', padding:'6px 13px', borderRadius:999, background:d.color+'26', color:d.color, border:'1.5px solid '+d.color+'55', fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:11.5, letterSpacing:1.1 },
-        resultLabel: isCorrect ? 'Nice \u2014 correct!' : 'Not quite \u2014',
-        resultStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:18, marginBottom:6, color: isCorrect ? '#7cdca0' : '#f0897c' },
+        revealed, showVideo: revealed,
+        chipStyle:{ display:'inline-flex', alignSelf:'flex-start', alignItems:'center', height:44, padding:'0 18px', borderRadius:999, background:d.color+'26', color:d.color, border:'1.5px solid '+d.color+'55', fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:13, letterSpacing:1.2 },
         explanation:d.explanation, coachNote:d.coachNote,
-        onSave:()=>this.toggleSave(d.id),
-        saveBtnStyle:{ width:34, height:34, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, cursor:'pointer', border:'1.5px solid rgba(255,255,255,0.2)', filter: isSaved ? 'none' : 'grayscale(1) opacity(0.65)', background: isSaved ? 'rgba(240,201,124,0.35)' : 'rgba(255,255,255,0.1)', transition:'all .15s' },
+        onCreate:()=>{}, onWhy:()=>this.scrollNext(),
+        onLike:()=>this.toggleLike(d.id), onSave:()=>this.toggleSave(d.id), onHighlight:()=>this.toggleHighlight(d.id),
+        heartFill: isLiked ? '#ff6b81' : 'none', heartStroke: isLiked ? '#ff6b81' : '#fff',
+        saveFill: isSaved ? '#f0c97c' : 'none', saveStroke: isSaved ? '#f0c97c' : '#fff',
+        hlStroke: isHl ? '#7cdca0' : '#fff',
+        likeCount:'2.9k', saveCount:'30k', hlCount:'1k',
       };
     });
 
@@ -537,15 +978,71 @@ class Component extends DCLogic {
     ];
     const badgeWrap = (on)=>({ display:'flex', flexDirection:'column', alignItems:'center', gap:8, opacity: on?1:0.4 });
     const badgeIcon = (on)=>({ width:58, height:58, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:28, background: on?'linear-gradient(135deg,#eedcb2,#d6a570)':'rgba(255,255,255,0.14)', border: on?'2px solid rgba(255,255,255,0.6)':'2px solid rgba(255,255,255,0.18)', boxShadow: on?'0 5px 12px rgba(120,80,30,0.25)':'none' });
-    const badgeRaw = [
-      {icon:'\uD83D\uDD25', label:'Week Warrior', on:true},
-      {icon:'\uD83E\uDDE0', label:'Logic Lord', on:true},
-      {icon:'\uD83C\uDF05', label:'Early Bird', on:true},
-      {icon:'\uD83D\uDCAF', label:'Centurion', on:true},
-      {icon:'\uD83C\uDFAF', label:'Sharp Shooter', on:false},
-      {icon:'\u26A1', label:'XP Hunter', on:false},
+    const tierColor = { Bronze:'#c08457', Silver:'#aebcc6', Gold:'#e7c66b' };
+    const achData = [
+      { id:'streak', icon:'\uD83D\uDD25', name:'Streak Keeper', desc:'Practice every day to keep your streak burning.', current:7, unit:'days', tiers:[{t:'Bronze',req:3},{t:'Silver',req:7},{t:'Gold',req:30}] },
+      { id:'logic', icon:'\uD83E\uDDE0', name:'Logic Lord', desc:'Reach mastery across the core reasoning concepts.', current:12, unit:'concepts', tiers:[{t:'Bronze',req:5},{t:'Silver',req:12},{t:'Gold',req:20}] },
+      { id:'sharp', icon:'\uD83C\uDFAF', name:'Sharp Shooter', desc:'Answer correctly on your very first try.', current:68, unit:'% first-try', tiers:[{t:'Bronze',req:70},{t:'Silver',req:85},{t:'Gold',req:95}] },
+      { id:'flawless', icon:'\u2728', name:'Flawless Run', desc:'Finish a full session with zero mistakes.', current:6, unit:'perfect runs', tiers:[{t:'Bronze',req:1},{t:'Silver',req:5},{t:'Gold',req:15}] },
+      { id:'speed', icon:'\u26A1', name:'Quick Thinker', desc:'Lock in a correct answer in under 15 seconds.', current:42, unit:'fast solves', tiers:[{t:'Bronze',req:10},{t:'Silver',req:50},{t:'Gold',req:150}] },
+      { id:'comeback', icon:'\uD83D\uDD04', name:'Comeback Kid', desc:'Miss a concept, then come back and master it.', current:11, unit:'redemptions', tiers:[{t:'Bronze',req:3},{t:'Silver',req:10},{t:'Gold',req:25}] },
+      { id:'cent', icon:'\uD83D\uDCAF', name:'Centurion', desc:'Rack up completed drills over time.', current:312, unit:'drills', tiers:[{t:'Bronze',req:100},{t:'Silver',req:250},{t:'Gold',req:500}] },
+      { id:'xp', icon:'\uD83D\uDC8E', name:'XP Hoarder', desc:'Earn experience points from every drill.', current:1240, unit:'XP', tiers:[{t:'Bronze',req:500},{t:'Silver',req:1500},{t:'Gold',req:5000}] },
+      { id:'early', icon:'\uD83C\uDF05', name:'Early Bird', desc:'Finish a drill session before 9 AM.', current:22, unit:'mornings', tiers:[{t:'Bronze',req:5},{t:'Silver',req:20},{t:'Gold',req:50}] },
+      { id:'owl', icon:'\uD83C\uDF19', name:'Night Owl', desc:'Squeeze in a session after 10 PM.', current:8, unit:'late nights', tiers:[{t:'Bronze',req:5},{t:'Silver',req:20},{t:'Gold',req:50}] },
+      { id:'cond', icon:'\uD83D\uDD17', name:'Conditional King', desc:'Conquer conditional-logic drills.', current:47, unit:'drills', tiers:[{t:'Bronze',req:15},{t:'Silver',req:40},{t:'Gold',req:100}] },
+      { id:'causal', icon:'\uD83E\uDDEA', name:'Cause & Effect', desc:'Untangle causal-reasoning questions.', current:33, unit:'drills', tiers:[{t:'Bronze',req:15},{t:'Silver',req:40},{t:'Gold',req:100}] },
+      { id:'assume', icon:'\uD83D\uDD75\uFE0F', name:'Assumption Ace', desc:'Spot the unstated assumption holding an argument up.', current:9, unit:'drills', tiers:[{t:'Bronze',req:15},{t:'Silver',req:40},{t:'Gold',req:100}] },
+      { id:'flaw', icon:'\uD83E\uDDE9', name:'Flaw Finder', desc:'Identify the reasoning flaw in an argument.', current:54, unit:'flaws spotted', tiers:[{t:'Bronze',req:20},{t:'Silver',req:50},{t:'Gold',req:120}] },
+      { id:'video', icon:'\uD83D\uDCDA', name:'Bookworm', desc:'Watch the coach explain why an answer is right.', current:28, unit:'videos', tiers:[{t:'Bronze',req:5},{t:'Silver',req:25},{t:'Gold',req:75}] },
+      { id:'saved', icon:'\uD83D\uDD16', name:'Curator', desc:'Bookmark drills to revisit later.', current:14, unit:'saved', tiers:[{t:'Bronze',req:5},{t:'Silver',req:25},{t:'Gold',req:100}] },
+      { id:'creator', icon:'\u270D\uFE0F', name:'Question Smith', desc:'Write your own drills for the community.', current:3, unit:'created', tiers:[{t:'Bronze',req:1},{t:'Silver',req:10},{t:'Gold',req:50}] },
+      { id:'likes', icon:'\uD83C\uDFC6', name:'Trendsetter', desc:'Collect likes on the questions you create.', current:380, unit:'likes', tiers:[{t:'Bronze',req:50},{t:'Silver',req:500},{t:'Gold',req:2500}] },
     ];
-    const badges = badgeRaw.map(b=>({ icon:b.icon, label:b.label, wrapStyle:badgeWrap(b.on), iconStyle:badgeIcon(b.on) }));
+    const achComputed = achData.map(a=>{
+      const tiers = a.tiers.map(t=>({ ...t, done: a.current >= t.req }));
+      const doneTiers = tiers.filter(t=>t.done);
+      const unlocked = doneTiers.length > 0;
+      const highest = unlocked ? doneTiers[doneTiers.length-1].t : null;
+      const next = tiers.find(t=>!t.done) || null;
+      return { ...a, tiers, unlocked, highest, next };
+    });
+    const unlockedCount = achComputed.filter(a=>a.unlocked).length;
+
+    // small profile grid (preview of first 6)
+    const badges = achComputed.slice(0,6).map(a=>({ icon:a.icon, label:a.name, wrapStyle:badgeWrap(a.unlocked), iconStyle:badgeIcon(a.unlocked) }));
+
+    // achievements sheet — grid items + selected detail
+    const selId = this.state.selectedAch;
+    const achGrid = achComputed.map(a=>{
+      const sel = a.id === selId;
+      return {
+        icon:a.icon, name:a.name,
+        onClick:()=>this.selectAchievement(a.id),
+        wrapStyle:{ display:'flex', flexDirection:'column', alignItems:'center', gap:7, cursor:'pointer', WebkitTapHighlightColor:'transparent', opacity: a.unlocked?1:0.45 },
+        iconStyle:{ width:60, height:60, borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:29, background: a.unlocked?'linear-gradient(135deg,#eedcb2,#d6a570)':'rgba(255,255,255,0.12)', border: sel?'2.5px solid #fff':(a.unlocked?'2px solid rgba(255,255,255,0.55)':'2px solid rgba(255,255,255,0.2)'), boxShadow: sel?'0 0 0 4px rgba(255,255,255,0.18)':(a.unlocked?'0 5px 12px rgba(120,80,30,0.25)':'none') },
+        labelStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:500, fontSize:11.5, color: sel?'#fff':'rgba(234,246,251,0.8)', textAlign:'center', lineHeight:1.15 },
+        ribbon: a.unlocked ? a.highest : 'Locked',
+        ribbonStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:9.5, letterSpacing:0.4, color: a.unlocked?tierColor[a.highest]:'rgba(234,246,251,0.5)' },
+      };
+    });
+    const selAch = achComputed.find(a=>a.id===selId) || achComputed[0];
+    const selPct = selAch.next ? Math.min(100, Math.round(selAch.current / selAch.next.req * 100)) : 100;
+    const selDetail = {
+      icon:selAch.icon, name:selAch.name, desc:selAch.desc,
+      bigIconStyle:{ width:74, height:74, flex:'0 0 74px', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:36, background: selAch.unlocked?'linear-gradient(135deg,#eedcb2,#d6a570)':'rgba(255,255,255,0.12)', border:'2px solid rgba(255,255,255,0.55)', boxShadow:'0 6px 14px rgba(120,80,30,0.25)' },
+      statusLabel: selAch.unlocked ? (selAch.highest + ' tier') : 'Not yet unlocked',
+      statusStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:13, color: selAch.unlocked?tierColor[selAch.highest]:'rgba(234,246,251,0.6)' },
+      progressLabel: selAch.next ? (selAch.current + ' / ' + selAch.next.req + ' ' + selAch.unit) : ('All tiers complete \u2014 ' + selAch.current + ' ' + selAch.unit),
+      barFillStyle:{ width: selPct+'%', height:'100%', borderRadius:999, background: selAch.next?tierColor[selAch.next.t]:'#7cdca0' },
+      tiers: selAch.tiers.map(t=>({
+        name:t.t, req:'Reach ' + t.req + ' ' + selAch.unit, done:t.done,
+        dotStyle:{ width:34, height:34, flex:'0 0 34px', borderRadius:'50%', display:'flex', alignItems:'center', justifyContent:'center', fontSize:16, background: t.done?tierColor[t.t]:'rgba(255,255,255,0.1)', border:'2px solid '+(t.done?tierColor[t.t]:'rgba(255,255,255,0.2)'), color:'#1c3a44', fontWeight:700 },
+        nameStyle:{ fontFamily:'Fredoka, sans-serif', fontWeight:600, fontSize:15, color: t.done?'#fff':'rgba(234,246,251,0.6)' },
+        reqStyle:{ fontFamily:'Nunito, sans-serif', fontWeight:700, fontSize:12.5, color:'rgba(234,246,251,0.55)', marginTop:1 },
+        mark: t.done ? '\u2713' : '',
+      })),
+    };
 
     // settings sheet
     const tg = this.state.toggles;
@@ -601,7 +1098,7 @@ class Component extends DCLogic {
       dark:true, deviceWidth:402, deviceHeight:874,
       pageRef:this.pageRef, heroRef:this.heroRef, timeRef:this.timeRef, periodRef:this.periodRef,
       greetRef:this.greetRef, subRef:this.subRef, weatherRef:this.weatherRef,
-      bgRef:this.bgRef, cloudRef:this.cloudRef, mascotRef:this.mascotRef,
+      bgRef:this.bgRef, cloudRef:this.cloudRef, mascotRef:this.mascotRef, feedRef:this.feedRef,
       isHome: tab==='home', isFeed: tab==='feed', isProgress: tab==='progress', isProfile: tab==='profile',
       goHome:()=>this.setState({tab:'home'}), goFeed:()=>this.setState({tab:'feed'}),
       goProgress:()=>this.setState({tab:'progress'}), goProfile:()=>this.setState({tab:'profile'}),
@@ -610,9 +1107,12 @@ class Component extends DCLogic {
       weekDays, targetAreas, videos, cards, mastery, weekBars, stats, badges,
       settingsOpen: this.state.settingsOpen, settingsSections,
       openSettings:()=>this.openSettings(), closeSettings:()=>this.closeSettings(),
+      achievementsOpen: this.state.achievementsOpen, achGrid, selDetail, unlockedCount, achTotal: achComputed.length,
+      openAchievements:()=>this.openAchievements(), closeAchievements:()=>this.closeAchievements(),
     };
   }
 }
 </script>
 </body>
+
 </html>
